@@ -5,6 +5,7 @@
 
 # Lesson(s) learnt:
 #   - i should immediately convert values of attributes like buyprice/sellprice/stock so as to be able to sort them properly. previously, i had all of them as strings and that caused issues with comparisons -- "100" was seen to be smaller than "90"
+#   - when implementing binary search, i have to remember to sort it first of all, and also to sort it by the key.
 
 import re
 
@@ -360,7 +361,72 @@ def searchItems():
     key = input("Search: ")
     binarySearch(key)
 
+
+def retreiveItems(t):
+    x = storeInv
+    y = []
+
+    for i in x:
+        if i["type"] == t:
+            y.append(i)
+
+    return y
+
+
+def totalStock():
+    while True:
+        print("""
+Please select what types of items you would like to include:
+    1. All
+    2. Fruit
+    3. Vegetable
+        """)
+        choice = input("Option: ")
+        if choice == "1":
+            items = storeInv
+            break
+        elif choice == "2":
+            items = retreiveItems("Fruit")
+            break
+        elif choice == "3":
+            items = retreiveItems("Vegetable")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+    total = 0
+    for i in items:
+        total += i["stock"]
     
+    print("The total stock is", total)
+
+def averageStock():
+    while True:
+        print("""
+Please select what types of items you would like to include:
+    1. All
+    2. Fruit
+    3. Vegetable
+        """)
+        choice = input("Option: ")
+        if choice == "1":
+            items = storeInv
+            break
+        elif choice == "2":
+            items = retreiveItems("Fruit")
+            break
+        elif choice == "3":
+            items = retreiveItems("Vegetable")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+    total = 0
+    for i in items:
+        total += i["stock"]
+    
+    avg = total/len(items)
+    
+    print("The average stock is", avg)
+
 
 # menu
 ans = True
@@ -370,8 +436,10 @@ Welcome to 1Mart Inventory System! Please select an option to continue.
     1. Add New Item
     2. Remove Item
     3. Display Items
-    4. Search
-    5. Exit/Quit
+    4. Display Total Stock Level
+    5. Display Average Stock Level
+    6. Search 
+    7. Exit/Quit
 """)
     ans = input("Option: ")
     if ans == "1":
@@ -381,8 +449,12 @@ Welcome to 1Mart Inventory System! Please select an option to continue.
     elif ans == "3":
         displayItems()
     elif ans == "4":
+        totalStock()
+    elif ans == "5":
+        averageStock()
+    elif ans == "6":
         searchItems()
-    elif ans == "5" or ans.lower() == "q":
+    elif ans == "7" or ans.lower() == "q":
         print("This program has terminated.")
         exit()
     else:
