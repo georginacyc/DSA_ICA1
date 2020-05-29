@@ -199,7 +199,7 @@ def searchKey():
     while True:
         print("""
 Please select an option to sort the display by:
-    1. Order Added (Default)
+    1. No Preference
     2. Type
     3. Description
     4. Supplier
@@ -329,8 +329,37 @@ def displayItems():
             for item in sortedInv:
                 print(str(count) + ":", item)
                 count = int(count) + 1
+
+
+def binarySearch(key):
+    sortedInv = bubbleSort(storeInv, "description", "Ascending")
+
+    first = 0
+    last = len(sortedInv)-1
+    found = False
+    while first<last and not found:
+
+        mid = (first+last) // 2
         
-    
+        x = storeInv[mid]
+        if x["description"].lower() == key.lower():
+            item = x
+            found = True
+        else:
+            if key.lower() < x["description"].lower():
+                last = mid - 1
+            else:
+                first = mid + 1
+    if found == True:
+        print(item)
+    else:
+        print("Item was not found.")
+
+
+def searchItems():
+    key = input("Search: ")
+    binarySearch(key)
+
     
 
 # menu
@@ -341,7 +370,8 @@ Welcome to 1Mart Inventory System! Please select an option to continue.
     1. Add New Item
     2. Remove Item
     3. Display Items
-    4. Exit/Quit
+    4. Search
+    5. Exit/Quit
 """)
     ans = input("Option: ")
     if ans == "1":
@@ -350,7 +380,9 @@ Welcome to 1Mart Inventory System! Please select an option to continue.
         removeItem()
     elif ans == "3":
         displayItems()
-    elif ans == "4" or ans.lower() == "q":
+    elif ans == "4":
+        searchItems()
+    elif ans == "5" or ans.lower() == "q":
         print("This program has terminated.")
         exit()
     else:
