@@ -4,7 +4,7 @@
 # Phase 2: Stock Inventory – Search and Sort Algorithms(10%)
 
 # Lesson(s) learnt:
-#   - 
+#   - i should immediately convert values of attributes like buyprice/sellprice/stock so as to be able to sort them properly. previously, i had all of them as strings and that caused issues with comparisons -- "100" was seen to be smaller than "90"
 
 import re
 
@@ -279,7 +279,29 @@ def bubbleSort(seq, key, order):
 
 
 def insertionSort(seq, key, order):
-    pass
+    n = len(seq)
+
+    for i in range(1, n):
+        pos = i
+
+        value = seq[i]
+
+        x = seq[i]
+        y = seq[pos-1]
+
+        z = y[key]
+        w = x[key]
+        if order == "Ascending":
+            while pos > 0 and w < z:
+                seq[pos] = seq[pos-1]
+                pos -= 1
+        else:
+            while pos > 0 and w > z:
+                seq[pos] = seq[pos-1]
+                pos -= 1
+
+        seq[pos] = value
+    return seq
 
 
 def displayItems():
