@@ -60,7 +60,9 @@ storeInv = [{'type': 'Fruit', 'description': 'Apple', 'supplier': 'Ringo Farms',
 {'type': 'Vegetable', 'description': 'Parsley', 'supplier': 'Rebirth Fields', 'buyPrice': 0.70, 'sellPrice': 1.20, 'stock': 100},
 {'type': 'Vegetable', 'description': 'Bean Sprouts', 'supplier': 'Broken Cart Gardens', 'buyPrice': 0.50, 'sellPrice': 1, 'stock': 26},
 {'type': 'Fruit', 'description': 'Apple', 'supplier': 'PingGuo Farms', 'buyPrice': 0.50, 'sellPrice': 1.35, 'stock': 100},
-{'type': 'Vegetable', 'description': 'Garlic', 'supplier': 'GG Acres', 'buyPrice': 0.80, 'sellPrice': 1.15, 'stock': 27}]
+{'type': 'Vegetable', 'description': 'Garlic', 'supplier': 'GG Acres', 'buyPrice': 0.80, 'sellPrice': 1.15, 'stock': 27},
+{'type': 'Vegetable', 'description': 'Potato', 'supplier': 'Fresh Farms', 'buyPrice': 0.70, 'sellPrice': 1, 'stock': 100},
+{'type': 'Vegetable', 'description': 'Potato', 'supplier': 'ABC Acres', 'buyPrice': 0.60, 'sellPrice': 1.20, 'stock': 23}]
 
 
 def addItem(): # item desc, selling price, stock level (quantity), supplier, buying price, popularity(?)
@@ -458,14 +460,35 @@ def retreiveLow():
 
 
 def supplierCompare():
-    pass
-    # n = len(storeInv)
+    a = {}
 
-    # for i in range(0, n):
-    #     for x in storeInv:
-    #         w = storeInv[i]
-            
-    #         if x["description"] == w["description"]:
+    for x in storeInv:
+        desc = x["description"]
+        if desc in a:
+            l = a[desc]
+            l.append(x)
+            a[desc] = l
+        else:
+            l = []
+            l.append(x)
+            a[desc] = l
+    for y in a.values():
+        eq = False
+        if len(y) > 1:
+            first = y[0]
+            cheapest = first
+            lowest = first["buyPrice"]
+            for i in y:
+                if i["buyPrice"] < lowest:
+                    cheapest = i
+                    lowest = cheapest["buyPrice"]
+            for m in y:
+                if m != cheapest:
+                    if m["buyPrice"] == lowest and eq == False:
+                        eq = True
+            if eq == False:
+                print("For {}, {} sells the cheapest at ${}. Consider using them as the main supplier of {}.".format(cheapest["description"], cheapest["supplier"], cheapest["buyPrice"], cheapest["description"]))
+                
 
 
 def truncate(num, digits):
@@ -482,7 +505,7 @@ def priceCompare():
         actual = truncate((z - y), 2)
 
         if actual < ideal:
-            print("The profit margin of {} from {} is only {}. The ideal profit margin would be {}.".format(x["description"], x["supplier"], actual, ideal))
+            print("The profit margin of {} from {} is only ${}. The ideal profit margin would be ${}.".format(x["description"], x["supplier"], actual, ideal))
 
 
 def displayReports():
@@ -492,6 +515,7 @@ def displayReports():
         print("The following items' stocks are low. It it recommended that they are restocked soon.")
         for i in low:
             print("\t {}: {} from {} has {} left".format(count, i["description"], i["supplier"], i["stock"]))
+            count += 1
     supplierCompare()
     priceCompare()
 
