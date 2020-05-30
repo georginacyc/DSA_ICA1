@@ -4,7 +4,8 @@
 # Phase 3: Stock Inventory – Additional features(5%)
 
 # Lesson(s) learnt:
-#   - 
+#   - math.trunc worked differently than i thought. i had to create a separate function to manipulate and use maht.trunc how i wanted, but it was fun figuring it out
+#   - i have to be careful when using boolean vars for conditionals in for loops, as i have to reset it it everytime it loops.
 
 import re
 import math
