@@ -9,7 +9,7 @@
 
 import re
 
-storeInv = [{'type': 'Fruit', 'description': 'Red Apple', 'supplier': 'Ringo Farms', 'buyPrice': 1, 'sellPrice': 1.65, 'stock': 100},
+storeInv = [{'type': 'Fruit', 'description': 'Apple', 'supplier': 'Ringo Farms', 'buyPrice': 1, 'sellPrice': 1.65, 'stock': 100},
 {'type': 'Fruit', 'description': 'Orange', 'supplier': 'Orenji Farms', 'buyPrice': 1.20, 'sellPrice': 1.70, 'stock': 50},
 {'type': 'Fruit', 'description': 'Pear', 'supplier': 'Nashi Farms', 'buyPrice': 1, 'sellPrice': 1.50, 'stock': 30},
 {'type': 'Fruit', 'description': 'Dragonfruit', 'supplier': 'Tangy Farms', 'buyPrice': 2, 'sellPrice': 2.95, 'stock': 100},
