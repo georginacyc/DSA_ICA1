@@ -362,7 +362,13 @@ def binarySearch(key, cat):
             else:
                 first = mid + 1
     if found == True:
-        print(item)
+        print("The following item was found: ")
+        print("Type:", item["type"])
+        print("Description:", item["description"])
+        print("Supplier:", item["supplier"])
+        print("Buy Price:", item["buyPrice"])
+        print("Sell Price:", item["sellPrice"])
+        print("Stock:", item["stock"])
     else:
         print("Item was not found.")
 
