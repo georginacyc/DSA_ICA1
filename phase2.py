@@ -290,17 +290,24 @@ def insertionSort(seq, key, order):
         x = seq[i]
         y = seq[pos-1]
 
-        z = y[key]
         w = x[key]
+        z = y[key]
         if order == "Ascending":
             while pos > 0 and w < z:
                 seq[pos] = seq[pos-1]
                 pos -= 1
+
+                y = seq[pos-1]
+
+                z = y[key]
         else:
             while pos > 0 and w > z:
                 seq[pos] = seq[pos-1]
                 pos -= 1
 
+                y = seq[pos-1]
+
+                z = y[key]
         seq[pos] = value
     return seq
 
@@ -332,22 +339,25 @@ def displayItems():
                 count = int(count) + 1
 
 
-def binarySearch(key):
-    sortedInv = bubbleSort(storeInv, "description", "Ascending")
+def binarySearch(key, cat):
+    if cat == "description":
+        sortedInv = bubbleSort(storeInv, "description", "Ascending")
+    else:
+        sortedInv = insertionSort(storeInv, "supplier", "Ascending")
 
     first = 0
     last = len(sortedInv)-1
     found = False
-    while first<last and not found:
+    while first<=last and not found:
 
         mid = (first+last) // 2
         
         x = storeInv[mid]
-        if x["description"].lower() == key.lower():
+        if x[cat].lower() == key.lower():
             item = x
             found = True
         else:
-            if key.lower() < x["description"].lower():
+            if key.lower() < x[cat].lower():
                 last = mid - 1
             else:
                 first = mid + 1
@@ -358,9 +368,24 @@ def binarySearch(key):
 
 
 def searchItems():
-    key = input("Search: ")
-    binarySearch(key)
-
+    while True:
+        print("""
+Please select which category you would like to search through:
+    1. Item Description
+    2. Item Supplier
+        """)
+        choice = input("Option: ")
+        if choice == "1":
+            key = input("Search: ")
+            binarySearch(key, "description")
+            break
+        elif choice == "2":
+            key = input("Search: ")
+            binarySearch(key, "supplier")
+            break
+        else:
+            print("Not a valid choice. Please try again.")
+    
 
 def retreiveItems(t):
     x = storeInv
