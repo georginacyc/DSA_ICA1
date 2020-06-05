@@ -6,6 +6,7 @@
 # Lesson(s) learnt:
 #   - i should immediately convert values of attributes like buyprice/sellprice/stock so as to be able to sort them properly. previously, i had all of them as strings and that caused issues with comparisons -- "100" was seen to be smaller than "90"
 #   - when implementing binary search, i have to remember to sort it first of all, and also to sort it by the key.
+#   - binary search is typically used for list of numbers
 
 import re
 
