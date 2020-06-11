@@ -364,6 +364,7 @@ def binarySearch(key, cat):
                 else:
                     first = mid + 1
         else:
+            key = float(key)
             if x[cat] == key:
                 item = x
                 found = True
