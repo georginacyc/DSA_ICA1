@@ -89,12 +89,14 @@ Please select the option that best fits the item:
     while True:
         if not re.match("^\d*[.]?\d*$", price):
             price = input("Please enter a valid item sell price ($): ")
-        elif float(bprice) >= float(price):
+        break
+    while True:
+        if float(bprice) >= float(price):
             while True:
                 choice = input("Item's selling price is less than or equal to its buying price. Are you sure you want to continue? (Y/N): ")
                 if choice.lower() == "n":
-                    print("Please re-enter the item information again carefully.")
-                    addItem()
+                    print("Please re-enter the item information carefully.")
+                    return
                 elif choice.lower() == "y":
                     price = float(price)
                     break
@@ -119,6 +121,7 @@ Please select the option that best fits the item:
             item["stock"] = int(item["stock"]) + int(stock)
             isMatch = True
             x = item
+            break
     if isMatch == False:
         x = {"type": itemType, "description": desc, "supplier": supplier, "buyPrice": bprice, "sellPrice": price, "stock": stock}
         storeInv.append(x)
