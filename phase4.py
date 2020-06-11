@@ -4,7 +4,7 @@
 # Phase 4: Challenge Question on Algorithm(5%)
 
 # Lesson(s) learnt:
-#   - 
+#   - sorting algorithms can be adapted for this purpose
 
 def pairSum(seq, z):
     X = "not found"

@@ -6,6 +6,7 @@
 # Lesson(s) learnt:
 #   - i should immediately convert values of attributes like buyprice/sellprice/stock so as to be able to sort them properly. previously, i had all of them as strings and that caused issues with comparisons -- "100" was seen to be smaller than "90"
 #   - when implementing binary search, i have to remember to sort it first of all, and also to sort it by the key.
+#   - binary search is typically used for list of numbers
 
 import re
 
@@ -343,7 +344,7 @@ def binarySearch(key, cat):
     if cat == "description":
         sortedInv = bubbleSort(storeInv, "description", "Ascending")
     else:
-        sortedInv = insertionSort(storeInv, "supplier", "Ascending")
+        sortedInv = insertionSort(storeInv, cat, "Ascending")
 
     first = 0
     last = len(sortedInv)-1
@@ -353,14 +354,24 @@ def binarySearch(key, cat):
         mid = (first+last) // 2
         
         x = storeInv[mid]
-        if x[cat].lower() == key.lower():
-            item = x
-            found = True
-        else:
-            if key.lower() < x[cat].lower():
-                last = mid - 1
+        if cat == "description" or cat == "supplier":
+            if x[cat].lower() == key.lower():
+                item = x
+                found = True
             else:
-                first = mid + 1
+                if key.lower() < x[cat].lower():
+                    last = mid - 1
+                else:
+                    first = mid + 1
+        else:
+            if x[cat] == key:
+                item = x
+                found = True
+            else:
+                if key < x[cat]:
+                    last = mid - 1
+                else:
+                    first = mid + 1
     if found == True:
         print("The following item was found: ")
         print("Type:", item["type"])
@@ -379,6 +390,8 @@ def searchItems():
 Please select which category you would like to search through:
     1. Item Description
     2. Item Supplier
+    3. Buy Price
+    4. Sell Price
         """)
         choice = input("Option: ")
         if choice == "1":
@@ -388,6 +401,15 @@ Please select which category you would like to search through:
         elif choice == "2":
             key = input("Search: ")
             binarySearch(key, "supplier")
+            break
+        elif choice == "3":
+            key = input("Search: ")
+            binarySearch(key, "buyPrice")
+            break
+        elif choice == "4":
+            key = input("Search: ")
+            key = float(key)
+            binarySearch(key, "sellPrice")
             break
         else:
             print("Not a valid choice. Please try again.")
